@@ -1,3 +1,6 @@
+import gherkin.lexer.Ca;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Deck {
@@ -16,16 +19,19 @@ public class Deck {
 
     public void printDeck() {
         for (Card card : cards) {
-            System.out.println(card.getName());
+            System.out.println("\t"+card.getName());
         }
     }
 
+    //The modern version of the Fisher–Yates shuffle
+    //https://en.wikipedia.org/wiki/Shuffling#Shuffling_algorithms
+    //https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
     public void shuffle() {
         int swapLoc = 0;
         Random rand = new Random();
         Card temp;
-        for (int i = 0; i < 52; i++) {
-            swapLoc = rand.nextInt(52);
+        for (int i = cards.length-1; i >0; i--) {
+            swapLoc = rand.nextInt(i+1);
             temp = cards[i];
             cards[i] = cards[swapLoc];
             cards[swapLoc] = temp;
@@ -36,4 +42,18 @@ public class Deck {
         return cards;
     }
 
+    public ArrayList<Card>[] distribute(int numPlayers){
+        System.out.println("Distributing cards to " + numPlayers + " players.");
+        ArrayList<Card>[] hands = new ArrayList[numPlayers];
+
+        //initialize with empty arraylists
+        for(int i=0;i<numPlayers;i++){
+            hands[i]= new ArrayList<Card>();
+        }
+
+        for (int i = 0; i < cards.length; i++) {
+            hands[i%numPlayers].add(cards[i]);
+        }
+        return hands;
+    }
 }
