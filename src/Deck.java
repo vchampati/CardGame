@@ -23,9 +23,7 @@ public class Deck {
         }
     }
 
-    //The modern version of the Fisher–Yates shuffle
-    //https://en.wikipedia.org/wiki/Shuffling#Shuffling_algorithms
-    //https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
+
     public void shuffle() {
         int swapLoc = 0;
         Random rand = new Random();
